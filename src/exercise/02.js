@@ -46,8 +46,8 @@ function GrayImage() {
       alert("文件必须为图片！");
       return false;
     }
-    console.log(fileTemp)
-    setFile(fileTemp)
+    setGraied(false);
+    setFile(fileTemp);
   }
   const handleGrayImage = () =>{
     let ctx = ref.current.getContext("2d");
@@ -58,7 +58,7 @@ function GrayImage() {
     let imgData = ctx.getImageData(0, 0, 300, 200);
     let grayData = convert256toGray(imgData, method)
     ctx.putImageData(grayData, 0, 0);
-    setGraied(true)
+    setGraied(true);
   }
   const handleDownloadGrayImage = () =>{
     if(!dataUrl) {
