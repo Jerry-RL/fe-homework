@@ -30,14 +30,13 @@ function useFileReader(file) {
 let methods =['float', 'int', 'ave', 'green']
 function GrayImage() {
 
-
   const [file, setFile] = useState(null);
   const [canvasHeight, setCanvasHeight] = useState(0);
   const [graied, setGraied] = useState(false);
   const ref = React.useRef();
   const imgRef = React.useRef(); 
 
-  const [method, setMethod] = useState('float')
+  const [method, setMethod] = useState('float');
   const dataUrl = useFileReader(file);
 
   const handleUploadImage = (e) =>{
@@ -63,14 +62,14 @@ function GrayImage() {
   }
   const handleDownloadGrayImage = () =>{
     if(!dataUrl) {
-      alert('上传图片')
+      alert('上传图片');
       return
     }
     if(!graied) {
-      alert('将图片灰度')
+      alert('将图片灰度');
       return
     }
-    downloadCanvas(ref.current, `${method}-gray-${file.name}`)
+    downloadCanvas(ref.current, `${method}-gray-${file.name}`);
   }
   useEffect(() =>{
     if(dataUrl) {
