@@ -6,7 +6,7 @@
   "version": "1.0.0",
   "private": true,
   "keywords": [],
-  
+  "homepage": "https://modest-bohr-766674.netlify.app/",
   "main": "src/index.js",
   "engines": {
     "node": "12 || 14 || 15 || 16",
