@@ -10,11 +10,11 @@ let fnMap = {
 };
 
 
-function convert256toGray(imageData, key = 'float') {
+function convert256toGray(imgData, key = 'float') {
 
   let fn = fnMap[key];
 
-  let imgData = JSON.parse(JSON.stringify(imageData));
+  // let imgData = JSON.parse(JSON.stringify(imageData));
 
   for (var i = 0; i < imgData.data.length; i += 4) {
     var R = imgData.data[i]; //R(0-255)
@@ -31,10 +31,17 @@ function convert256toGray(imageData, key = 'float') {
   }
   return imgData
 }
-function downloadCanvas(link, ref, filename) {
-  link.href = ref.toDataURL();
-  link.download = filename;
+function downloadCanvas(current, filename) {
+  try {
+    let link = document.createElement('a')
+    link.href = current.toDataURL();
+    link.download = filename;
+    link.click()
+  } catch (error) { 
+    console.error(error)
+  }
 }
 export {
- convert256toGray
+ convert256toGray,
+ downloadCanvas
 }
