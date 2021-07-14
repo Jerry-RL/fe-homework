@@ -2,32 +2,24 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-function generateDataUrl(file) {
-  let src;
-  var reader = new FileReader();
-  reader.addEventListener("load", function () {
-    src = reader.result;
-  }, false);
-  reader.readAsDataURL(file);
-  return src
-}
-function useFileReader(file) {
-  const [dataUrl, setDataUrl] = useState(null)
 
+function useFileReader(file) {
+  const [dataUrl, setDataUrl] = useState(null);
   useEffect(() =>{
-    var reader = new FileReader();
+    let reader = new FileReader();
     reader.addEventListener("load", function () {
       setDataUrl(reader.result);
     }, false);
+    reader.addEventListener("error", function () {
+      setDataUrl(reader.result);
+    }, false);
     if (file) {
-      console.log('file', file)
       reader.readAsDataURL(file);
     }
     return () =>{
-      // reader.
+      reader = null
     }
   }, [file])
-
   return dataUrl
 }
 function GrayImage() {
