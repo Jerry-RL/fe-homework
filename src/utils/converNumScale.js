@@ -52,4 +52,42 @@ function decimalToNScaleByDouble(n, smallNum) {
   flag = null;
   return stack
 }
-export default decimalToNScale
+
+function nScaleToDecimalByInt(n, leftNum) {
+  let arr = leftNum.reverse();
+  let len = leftNum.length;
+  let ret = 0;
+  for(let i = 0; i< len; i++) {
+    ret += charValMap[arr[i]] * (n ** i)
+  }
+  return ret
+}
+
+// 
+function nScaleToDecimalByDouble(n, rightNum) {
+  let len = rightNum.length;
+  let ret = 0;
+  for(let i = 0; i< len; i++) {
+    let char = rightNum[i];
+    ret += charValMap[char] *( n ** (-i-1))
+  }
+  return ret
+}
+function nScaleToDecrimal(n) {
+  if(n > 64) {
+    throw new RangeError('不支持64以上进制');
+  }
+  return (str) =>{
+    let isPostiveNum = str.startsWith('-') ? -1 : 1;
+    
+    let nums = str.replace(/\-/, '').split('.');
+    let leftNum = nums[0].split('');
+    let rightNum = nums[1] ? nums[1].split('') : 0;
+    console.log(isPostiveNum , leftNum, rightNum)
+    return isPostiveNum *(nScaleToDecimalByInt(n, leftNum) + nScaleToDecimalByDouble(n, rightNum))
+  }
+}
+export {
+  decimalToNScale,
+  nScaleToDecrimal
+}

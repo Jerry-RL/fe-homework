@@ -1,13 +1,14 @@
 // http://localhost:3000/isolated/exercise/01.js
 
 import * as React from 'react';
-import decimalToNScale from "../utils/converNumScale";
+import {decimalToNScale, nScaleToDecrimal} from "../utils/converNumScale";
 
 function ConvertDecimal() {
   
   const [n, setN] = React.useState(2)
   const [num, setNum] = React.useState(0)
-  const [result, setResult] = React.useState('...');
+  const [result, setResult] = React.useState(null);
+  const [origin, setOrigin] = React.useState(null);
 
   const list = [2, 4, 8, 16, 32, 64];
   function handleConvert() {
@@ -18,6 +19,15 @@ function ConvertDecimal() {
     let numFn = decimalToNScale(n)
     // console.log(typeof num)
     setResult(numFn(num * 1))
+  }
+  function handleOrigin() {
+    if(!result) {
+      alert(`请先获取一个有效进制的数`)
+      return 
+    }
+    let fn = nScaleToDecrimal(n)
+    let ret = fn(`${result}`)
+    setOrigin(ret)
   }
   return (
     <div>
@@ -38,7 +48,12 @@ function ConvertDecimal() {
       <button onClick={() =>handleConvert()}>转换</button>
       <div style={{margin:'10px 0'}}>
         <span style={{ marginRight:10}} >返回结果:</span>
-        <span>{result}</span>
+        <span>{result ? result: '...'}</span>
+      </div>
+      <button onClick={() =>handleOrigin()}>重回十进制</button>
+      <div style={{margin:'10px 0'}}>
+        <span style={{ marginRight:10}} >返回结果:</span>
+        <span>{origin}</span>
       </div>
     </div>
   )
