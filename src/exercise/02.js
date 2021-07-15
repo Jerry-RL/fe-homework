@@ -32,6 +32,7 @@ function GrayImage() {
 
   const [file, setFile] = useState(null);
   const [canvasHeight, setCanvasHeight] = useState(0);
+  const [canvasWidth, setCanvasWidth] = useState(0);
   const [graied, setGraied] = useState(false);
   const ref = React.useRef();
   const imgRef = React.useRef(); 
@@ -55,7 +56,7 @@ function GrayImage() {
       alert('上传图片')
       return
     }
-    let imgData = ctx.getImageData(0, 0, 300, 200);
+    let imgData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
     let grayData = convert256toGray(imgData, method)
     ctx.putImageData(grayData, 0, 0);
     setGraied(true);
@@ -71,11 +72,20 @@ function GrayImage() {
     }
     downloadCanvas(ref.current, `${method}-gray-${file.name}`);
   }
+
   useEffect(() =>{
     if(dataUrl) {
       let height = getComputedStyle(imgRef.current).height.replace('px', '') * 1;
+      let width = getComputedStyle(imgRef.current).width.replace('px', '') * 1;
+      let current = ref.current;
+      current.width = width;
+      current.height = height;
       setCanvasHeight(height)
-      ref.current.getContext("2d").drawImage(imgRef.current, 0, 0, 300, height);
+      setCanvasWidth(width)
+      let ctx = current.getContext("2d");
+      
+      ctx.drawImage(imgRef.current, 0, 0)
+      ctx.drawImage(imgRef.current, 0, 0, width, height);
     }
 
   }, [dataUrl])
@@ -87,7 +97,7 @@ function GrayImage() {
       </div>
       <div style={{margin: "10px 0"}}>
         <span style={{marginRight: 10}}>图片预览:</span>
-        {dataUrl && <img alt="demo" ref={imgRef} src={dataUrl} style={{width: 300}} />}
+        {dataUrl && <img alt="demo" ref={imgRef} src={dataUrl}  />}
       </div>
       <div>
         <select value={method} onChange={e =>setMethod(e.target.value)}>
@@ -101,7 +111,8 @@ function GrayImage() {
       </div>
       <div style={{margin: "10px 0"}}>
         <span style={{marginRight: 10}}>图片灰度:</span>
-        <canvas ref={ref} style={{width: 300, height: canvasHeight}}>
+        
+        <canvas ref={ref} >
           
         </canvas>
       </div>
