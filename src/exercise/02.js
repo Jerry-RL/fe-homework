@@ -97,7 +97,7 @@ function GrayImage() {
       </div>
       <div style={{margin: "10px 0"}}>
         <span style={{marginRight: 10}}>图片预览:</span>
-        {dataUrl && <img alt="demo" ref={imgRef} src={dataUrl}  />}
+        {dataUrl && <img style={{width: 300}} alt="demo" ref={imgRef} src={dataUrl}  />}
       </div>
       <div>
         <select value={method} onChange={e =>setMethod(e.target.value)}>
