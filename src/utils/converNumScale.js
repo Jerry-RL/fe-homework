@@ -79,7 +79,6 @@ function nScaleToDecrimal(n) {
   }
   return (str) =>{
     let isPostiveNum = str.startsWith('-') ? -1 : 1;
-    
     let nums = str.replace(/\-/, '').split('.');
     let leftNum = nums[0].split('');
     let rightNum = nums[1] ? nums[1].split('') : 0;
