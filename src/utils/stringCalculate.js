@@ -67,7 +67,7 @@ function calculate(input) {
       while (opStack.length !== 0 && opStack[opStack.length - 1] !== '(') {
         execOperation(numStack, opStack)
       }
-      // 直到遇到"("出栈
+      // 直到遇到"）"出栈
       opStack.pop()
     } else {
       while (
