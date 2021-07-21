@@ -25,7 +25,6 @@ function isShow(el, data) {
   let key = el.getAttribute('v-if')
   if(key) {
     let bool = getValueByPath(data, key)
-    console.log('key', el, key, bool)
     if(bool === false) {
       el.style.display = 'none'
     }
